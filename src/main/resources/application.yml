@@ -1,0 +1,37 @@
+server:
+  port: 8052
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/salesflow
+    username: root
+    password: root123
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 50
+      idle-timeout: 3000
+  jpa:
+    hibernate:
+      ddl-auto: update
+  application:
+    name: salesflow-inventory-service
+
+salesflow:
+  security:
+    jwt:
+      secret-key: dd38da31ac47e34a6c1753ac559de1448996fc2c2e5fae28f2651c5108ed14f2
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
+  openapi:
+    dev-url: http://${salesflow-gateway-host:localhost}:${salesflow-gateway-port:8055}
+  deployment:
+    environment: dev
+
+springdoc:
+  api-docs:
+    path: /salesflow-inventory-service/v3/api-docs
+  swagger-ui:
+    path: /salesflow-inventory-service/swagger-ui.html
+
